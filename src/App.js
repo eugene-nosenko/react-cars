@@ -30,24 +30,28 @@ class App extends Component {
       textAlign: "center",
     };
 
+    let cars = null;
+
+    if (this.state.showCars) {
+      cars = this.state.cars.map((car, index) => {
+        return (
+          <Car
+            key={index}
+            name={car.name}
+            year={car.year}
+            onChangeTitle={() => this.changeTitleHandler(car.name)}
+          />
+        );
+      });
+    }
+
     return (
       <div style={divStyle}>
         <h1>{this.state.pageTitle}</h1>
 
         <button onClick={this.toggleCarsHamdler}>toggleCars</button>
 
-        {this.state.showCars
-          ? this.state.cars.map((car, index) => {
-              return (
-                <Car
-                  key={index}
-                  name={car.name}
-                  year={car.year}
-                  onChangeTitle={() => this.changeTitleHandler(car.name)}
-                />
-              );
-            })
-          : null}
+        {cars}
       </div>
     );
   }
