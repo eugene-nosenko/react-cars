@@ -20,7 +20,12 @@ export default (props) => {
       <p>
         Year: <strong>{props.year}</strong>
       </p>
-      <input type="text" onChange={props.onChangeName} value={props.name} />
+      <input
+        type="text"
+        onChange={props.onChangeName}
+        value={props.name}
+        className={inputClasses.join(" ")}
+      />
       <button onClick={props.onDelete}>Delete</button>
     </div>
   );
