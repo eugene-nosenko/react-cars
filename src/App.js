@@ -1,17 +1,22 @@
 import React, { Component } from "react";
 import "./App.css";
 import Car from "./Cars/Cars";
+import Counter from "./Counter/Counter";
 
 class App extends Component {
-  state = {
-    cars: [
-      { name: "Ford", year: 2018 },
-      { name: "Audi", year: 2016 },
-      { name: "Mazda", year: 2010 },
-    ],
-    pageTitle: "React components",
-    showCars: false,
-  };
+  constructor(props) {
+    console.log("App constructor");
+    super(props);
+    this.state = {
+      cars: [
+        { name: "Ford", year: 2018 },
+        // { name: "Audi", year: 2016 },
+        // { name: "Mazda", year: 2010 },
+      ],
+      pageTitle: "React components",
+      showCars: false,
+    };
+  }
 
   toggleCarsHamdler = () => {
     this.setState({
@@ -33,7 +38,16 @@ class App extends Component {
     this.setState({ cars });
   }
 
+  UNSAFE_componentWillMount() {
+    console.log("App UNSAFE_componentWillMount");
+  }
+
+  componentDidMount() {
+    console.log("App componentDidMount");
+  }
+
   render() {
+    console.log("App render");
     const divStyle = {
       textAlign: "center",
     };
@@ -58,7 +72,9 @@ class App extends Component {
 
     return (
       <div style={divStyle}>
-        <h1>{this.state.pageTitle}</h1>
+        <Counter />
+        {/* <h1>{this.state.pageTitle}</h1> */}
+        <h1>{this.props.title}</h1>
 
         <button onClick={this.toggleCarsHamdler}>toggleCars</button>
         <div
