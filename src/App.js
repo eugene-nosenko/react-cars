@@ -3,6 +3,8 @@ import "./App.css";
 import Car from "./Cars/Cars";
 import Counter from "./Counter/Counter";
 
+export const ClickedContext = React.createContext(false);
+
 class App extends Component {
   constructor(props) {
     console.log("App constructor");
@@ -15,6 +17,7 @@ class App extends Component {
       ],
       pageTitle: "React components",
       showCars: false,
+      clicked: false,
     };
   }
 
@@ -65,11 +68,17 @@ class App extends Component {
 
     return (
       <div style={divStyle}>
-        <Counter />
         {/* <h1>{this.state.pageTitle}</h1> */}
         <h1>{this.props.title}</h1>
 
+        <ClickedContext.Provider value={this.state.clicked}>
+          <Counter />
+        </ClickedContext.Provider>
+
         <button onClick={this.toggleCarsHamdler}>toggleCars</button>
+        <button onClick={() => this.setState({ clicked: true })}>
+          Change clicked
+        </button>
         <div
           style={{
             width: 400,
