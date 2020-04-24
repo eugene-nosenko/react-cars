@@ -1,59 +1,28 @@
-import React from "react";
-import "./Cars.css";
-import withClass from "../hoc/withClass";
-import PropTypes from "prop-types";
+import React, { Component } from "react";
+import Car from "./Car/Car";
 
-class Car extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.inputRef = React.createRef();
-  }
-
-  componentDidMount() {
-    if (this.props.index === 0) {
-      this.inputRef.current.focus();
-    }
-  }
+export default class Cars extends Component {
+  state = {
+    cars: [
+      { name: "Ford", year: 2018 },
+      { name: "Audi", year: 2016 },
+      { name: "Mazda", year: 2010 },
+    ],
+  };
 
   render() {
-    const inputClasses = ["input"];
-
-    if (this.props.name !== "") {
-      inputClasses.push("green");
-    } else {
-      inputClasses.push("red");
-    }
-
-    if (this.props.name.length > 4) {
-      inputClasses.push("bold");
-    }
-
     return (
-      <div>
-        <h3>Сar name: {this.props.name}</h3>
-        <p>
-          Year: <strong>{this.props.year}</strong>
-        </p>
-        <input
-          ref={this.inputRef}
-          type="text"
-          onChange={this.props.onChangeName}
-          value={this.props.name}
-          className={inputClasses.join(" ")}
-        />
-        <button onClick={this.props.onDelete}>Delete</button>
+      <div
+        style={{
+          width: 400,
+          margin: "auto",
+          paddingTop: "20px",
+        }}
+      >
+        {this.state.cars.map((car, index) => {
+          return <Car key={index} name={car.name} year={car.year} />;
+        })}
       </div>
     );
   }
 }
-
-Car.propTypes = {
-  name: PropTypes.string.isRequired,
-  index: PropTypes.number,
-  year: PropTypes.number,
-  onChangeName: PropTypes.func,
-  onDelete: PropTypes.func,
-};
-
-export default withClass(Car, Car);
